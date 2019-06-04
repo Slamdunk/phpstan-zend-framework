@@ -1,7 +1,7 @@
 [
     {
         "message": "Cannot call method isBar() on null.",
-        "line": 25,
+        "line": 27,
         "ignorable": true
     }
 ]
