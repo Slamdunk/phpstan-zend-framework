@@ -2,6 +2,7 @@
     "name": "slam/phpstan-zend-mvc",
     "description": "Zend Framework 3 MVC controller plugin extension for PHPStan.",
     "type": "phpstan-extension",
+    "license": "MIT",
     "require": {
         "php": "^7.1",
         "zendframework/zend-mvc": "^3.1",
@@ -18,7 +19,13 @@
         "slam/php-debug-r": "^1.4",
         "zendframework/zend-mvc": "^3.1"
     },
-    "license": "MIT",
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
+    },
     "authors": [
         {
             "name": "Greg Bell",
