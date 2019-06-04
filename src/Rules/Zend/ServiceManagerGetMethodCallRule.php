@@ -51,6 +51,7 @@ final class ServiceManagerGetMethodCallRule implements Rule
         if (! isset($node->args[0])) {
             return [];
         }
+
         $argType = $scope->getType($node->args[0]->value);
         if (! $argType instanceof ConstantStringType) {
             return [];
@@ -71,15 +72,12 @@ final class ServiceManagerGetMethodCallRule implements Rule
             return [];
         }
 
-        $serviceManagerName = $calledOnType->getClassName();
-        $serviceManager     = $this->serviceManagerLoader->getServiceManager();
-        if (isset($this->knownUnmappedAliasToClassServices[$serviceManagerName])) {
-            $serviceManager = $serviceManager->get($this->knownUnmappedAliasToClassServices[$serviceManagerName]);
-        } elseif ($calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()) {
-            $serviceManager = $serviceManager->get($serviceManagerName);
-        }
+        $serviceName    = $argType->getValue();
+        $serviceManager = $this->serviceManagerLoader->getServiceManager(
+            $calledOnType->getClassName(),
+            $calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()
+        );
 
-        $serviceName = $argType->getValue();
         if ($serviceManager->has($serviceName)) {
             return [];
         }
@@ -89,7 +87,7 @@ final class ServiceManagerGetMethodCallRule implements Rule
             $serviceName,
             $calledOnType instanceof ObjectServiceManagerType
                 ? $calledOnType->getServiceName()
-                : $serviceManagerName
+                : $calledOnType->getClassName()
         )];
     }
 }

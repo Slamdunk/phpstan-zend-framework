@@ -13,10 +13,8 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\PluginManagerInterface;
 use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
 
 final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
@@ -24,14 +22,6 @@ final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethod
      * @var ServiceManagerLoader
      */
     private $serviceManagerLoader;
-
-    /**
-     * @var array
-     */
-    private $knownUnmappedAliasToClassServices = [
-        ControllerManager::class   => 'ControllerManager',
-        HelperPluginManager::class => 'ViewHelperManager',
-    ];
 
     public function __construct(ServiceManagerLoader $serviceManagerLoader)
     {
@@ -57,31 +47,28 @@ final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethod
             return new MixedType();
         }
 
-        $calledOnType = $scope->getType($methodCall->var);
-        if (! $calledOnType instanceof ObjectType) {
-            return new MixedType();
-        }
-
         $argType = $scope->getType($methodCall->args[0]->value);
         if (! $argType instanceof ConstantStringType) {
             return new MixedType();
         }
 
-        $serviceManagerName = $calledOnType->getClassName();
-        $serviceManager     = $this->serviceManagerLoader->getServiceManager();
-        if (isset($this->knownUnmappedAliasToClassServices[$serviceManagerName])) {
-            $serviceManager = $serviceManager->get($this->knownUnmappedAliasToClassServices[$serviceManagerName]);
-        } elseif ($calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()) {
-            $serviceManager = $serviceManager->get($serviceManagerName);
+        $calledOnType = $scope->getType($methodCall->var);
+        if (! $calledOnType instanceof ObjectType) {
+            return new MixedType();
         }
 
-        $objectName = $argType->getValue();
-        if (! $serviceManager->has($objectName)) {
+        $serviceName    = $argType->getValue();
+        $serviceManager = $this->serviceManagerLoader->getServiceManager(
+            $calledOnType->getClassName(),
+            $calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()
+        );
+
+        if (! $serviceManager->has($serviceName)) {
             return new NeverType();
         }
 
-        $serviceClass = \get_class($serviceManager->get($objectName));
+        $serviceClass = \get_class($serviceManager->get($serviceName));
 
-        return new ObjectServiceManagerType($serviceClass, $objectName);
+        return new ObjectServiceManagerType($serviceClass, $serviceName);
     }
 }

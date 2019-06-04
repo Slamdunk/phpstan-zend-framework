@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace ZendPhpStan\Type\Zend;
 
 use Zend\ModuleManager\ModuleManager;
+use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
+use Zend\View\HelperPluginManager;
 
 final class ServiceManagerLoader
 {
@@ -14,6 +16,14 @@ final class ServiceManagerLoader
      * @var null|ServiceManager
      */
     private $serviceManager;
+
+    /**
+     * @var array
+     */
+    private $knownUnmappedAliasToClassServices = [
+        ControllerManager::class   => 'ControllerManager',
+        HelperPluginManager::class => 'ViewHelperManager',
+    ];
 
     public function __construct(?string $serviceManagerLoader)
     {
@@ -33,7 +43,7 @@ final class ServiceManagerLoader
         $this->serviceManager = $serviceManager;
     }
 
-    public function getServiceManager(): ServiceManager
+    public function getServiceManager(string $serviceManagerName, bool $isPlugin): ServiceManager
     {
         if (null === $this->serviceManager) {
             $serviceManagerConfig = new ServiceManagerConfig();
@@ -48,6 +58,13 @@ final class ServiceManagerLoader
             $this->serviceManager = $serviceManager;
         }
 
-        return $this->serviceManager;
+        $serviceManager     = $this->serviceManager;
+        if (isset($this->knownUnmappedAliasToClassServices[$serviceManagerName])) {
+            $serviceManager = $serviceManager->get($this->knownUnmappedAliasToClassServices[$serviceManagerName]);
+        } elseif ($isPlugin) {
+            $serviceManager = $serviceManager->get($serviceManagerName);
+        }
+
+        return $serviceManager;
     }
 }
