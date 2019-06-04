@@ -65,7 +65,7 @@ final class ServiceManagerGetMethodCallRule implements Rule
         $serviceManager     = $this->serviceManagerLoader->getServiceManager();
         if ($calledOnType instanceof ObjectServiceManagerType && $calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()) {
             $serviceManagerName = $calledOnType->getServiceName();
-            $serviceManager->get($serviceManagerName);
+            $serviceManager     = $serviceManager->get($serviceManagerName);
         }
         $serviceName = $argType->getValue();
         if ($serviceManager->has($serviceName)) {

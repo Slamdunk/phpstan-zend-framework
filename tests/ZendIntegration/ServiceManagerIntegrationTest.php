@@ -17,6 +17,9 @@ final class ServiceManagerIntegrationTest extends LevelsTestCase
         return [
             ['serviceManagerDynamicReturn'],
             ['controllerPluginMethod'],
+            ['controllerMethod'],
+            ['routePluginMethod'],
+            ['viewHelperPluginMethod'],
         ];
     }
 

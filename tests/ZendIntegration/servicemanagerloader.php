@@ -7,13 +7,17 @@ use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\ServiceManager\ServiceManager;
 use ZendPhpStan\TestAsset\BarService;
+use ZendPhpStan\TestAsset\CssService;
 use ZendPhpStan\TestAsset\FooService;
+use ZendPhpStan\TestAsset\Route66;
+use ZendPhpStan\TestAsset\XyzController;
 
 $serviceManagerConfig = new ServiceManagerConfig();
 $serviceManager       = new ServiceManager();
 $serviceManagerConfig->configureServiceManager($serviceManager);
 $serviceManager->setService('ApplicationConfig', [
     'modules' => [
+        'Zend\Router',
         'zendphpstan' => new class() implements ConfigProviderInterface {
             /**
              * @return array|\Traversable
@@ -26,9 +30,24 @@ $serviceManager->setService('ApplicationConfig', [
                             'foo' => FooService::class,
                         ],
                     ],
+                    'controllers' => [
+                        'invokables' => [
+                            'xyz' => XyzController::class,
+                        ],
+                    ],
                     'controller_plugins' => [
                         'invokables' => [
                             'bar' => BarService::class,
+                        ],
+                    ],
+                    'route_manager' => [
+                        'invokables' => [
+                            'route66' => Route66::class,
+                        ],
+                    ],
+                    'view_helpers' => [
+                        'invokables' => [
+                            'css' => CssService::class,
                         ],
                     ],
                 ];

@@ -23,6 +23,6 @@ final class Foo
         $controllerPluginManager = $this->serviceManager->get('ControllerPluginManager');
 
         $controllerPluginManager->get('non_existent_service');
-        $controllerPluginManager->get('EventManager');
+        $controllerPluginManager->get('redirect');
     }
 }
