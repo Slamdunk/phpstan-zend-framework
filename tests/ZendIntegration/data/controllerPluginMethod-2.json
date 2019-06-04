@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Call to an undefined method ZendPhpStan\\TestAsset\\BarService::isFoo().",
+        "line": 16,
+        "ignorable": true
+    }
+]

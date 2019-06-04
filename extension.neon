@@ -1,0 +1,22 @@
+parameters:
+    zendframework:
+       serviceManagerLoader: null
+
+parametersSchema:
+    zendframework: structure([
+       serviceManagerLoader: schema(string(), nullable())
+    ])
+
+services:
+    -
+       class: ZendPhpStan\Type\Zend\ServiceManagerLoader
+       arguments:
+           serviceManagerLoader: %zendframework.serviceManagerLoader%
+    -
+       class: ZendPhpStan\Type\Zend\ServiceManagerGetDynamicReturnTypeExtension
+       tags:
+           - phpstan.broker.dynamicMethodReturnTypeExtension
+    -
+       class: ZendPhpStan\Type\Zend\ControllerPluginClassReflectionExtension
+       tags:
+           - phpstan.broker.methodsClassReflectionExtension

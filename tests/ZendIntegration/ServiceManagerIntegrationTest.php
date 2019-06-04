@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
 
 use PHPStan\Testing\LevelsTestCase;
 
 final class ServiceManagerIntegrationTest extends LevelsTestCase
 {
-
     public function dataTopics(): array
     {
-        // TODO: Implement dataTopics() method.
+        return [
+            ['serviceManagerDynamicReturn'],
+            ['controllerPluginMethod'],
+        ];
     }
 
     public function getDataPath(): string
@@ -18,7 +21,7 @@ final class ServiceManagerIntegrationTest extends LevelsTestCase
 
     public function getPhpStanExecutablePath(): string
     {
-        return __DIR__ . '/../../../vendor/bin/phpstan';
+        return __DIR__ . '/../../vendor/bin/phpstan';
     }
 
     public function getPhpStanConfigPath(): ?string

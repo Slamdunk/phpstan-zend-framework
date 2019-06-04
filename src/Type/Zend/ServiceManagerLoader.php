@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace ZendPhpStan\Type\Zend;
-
 
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
@@ -21,13 +21,13 @@ final class ServiceManagerLoader
             return;
         }
 
-        if (!file_exists($serviceManagerLoader) || !is_readable($serviceManagerLoader)) {
+        if (! \file_exists($serviceManagerLoader) || ! \is_readable($serviceManagerLoader)) {
             throw new \PHPStan\ShouldNotHappenException('Service manager could not be loaded');
         }
 
         $serviceManager = require $serviceManagerLoader;
-        if (!$serviceManager instanceof ServiceManager) {
-            throw new \PHPStan\ShouldNotHappenException(sprintf('Loader "%s" doesn\'t return a ServiceManager instance', $serviceManagerLoader));
+        if (! $serviceManager instanceof ServiceManager) {
+            throw new \PHPStan\ShouldNotHappenException(\sprintf('Loader "%s" doesn\'t return a ServiceManager instance', $serviceManagerLoader));
         }
 
         $this->serviceManager = $serviceManager;
@@ -37,10 +37,10 @@ final class ServiceManagerLoader
     {
         if (null === $this->serviceManager) {
             $serviceManagerConfig = new ServiceManagerConfig();
-            $serviceManager = new ServiceManager();
+            $serviceManager       = new ServiceManager();
             $serviceManagerConfig->configureServiceManager($serviceManager);
             $serviceManager->setService('ApplicationConfig', [
-                'modules' => [],
+                'modules'                 => [],
                 'module_listener_options' => [],
             ]);
             $serviceManager->get(ModuleManager::class)->loadModules();

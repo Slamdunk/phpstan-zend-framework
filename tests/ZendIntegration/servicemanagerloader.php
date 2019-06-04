@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
@@ -8,11 +10,11 @@ use ZendPhpStan\TestAsset\BarService;
 use ZendPhpStan\TestAsset\FooService;
 
 $serviceManagerConfig = new ServiceManagerConfig();
-$serviceManager = new ServiceManager();
+$serviceManager       = new ServiceManager();
 $serviceManagerConfig->configureServiceManager($serviceManager);
 $serviceManager->setService('ApplicationConfig', [
     'modules' => [
-        'zendphpstan' => new class implements ConfigProviderInterface {
+        'zendphpstan' => new class() implements ConfigProviderInterface {
             /**
              * @return array|\Traversable
              */
@@ -31,7 +33,7 @@ $serviceManager->setService('ApplicationConfig', [
                     ],
                 ];
             }
-        }
+        },
     ],
     'module_listener_options' => [],
 ]);
