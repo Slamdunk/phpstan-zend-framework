@@ -5,6 +5,8 @@ namespace ZendPhpStan\Tests\Type\Zend;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\Service\ControllerPluginManagerFactory;
+use ZendPhpStan\TestAsset\BarService;
+use ZendPhpStan\TestAsset\FooService;
 use ZendPhpStan\Type\Zend\ServiceManagerLoader;
 use PHPStan\ShouldNotHappenException;
 use PHPUnit\Framework\TestCase;
@@ -14,6 +16,22 @@ use PHPUnit\Framework\TestCase;
  */
 final class ServiceManagerLoaderTest extends TestCase
 {
+    public function testWitNullFileUseADefaultInstanceWithPluginManagerConfigured()
+    {
+        $serviceManagerLoader = new ServiceManagerLoader(null);
+
+        $serviceManager = $serviceManagerLoader->getServiceManager();
+
+        // @see \Zend\Mvc\Service\ServiceManagerConfig
+        $this->assertTrue($serviceManager->has(EventManagerInterface::class));
+        $this->assertTrue($serviceManager->has('ControllerPluginManager'));
+
+        /** @var PluginManager $controllerPluginManager */
+        $controllerPluginManager = $serviceManager->get('ControllerPluginManager');
+
+        $this->assertTrue($controllerPluginManager->has('redirect'));
+    }
+
     public function testLoaderMustBeAValidFile()
     {
         $this->expectException(ShouldNotHappenException::class);
@@ -30,25 +48,22 @@ final class ServiceManagerLoaderTest extends TestCase
 
     public function testLoaderReturnsTheProvidedServiceManager()
     {
-        $serviceManagerFromFile = require __DIR__ . '/data/servicemanagerloader.php';
-        $serviceManagerLoader = new ServiceManagerLoader(__DIR__ . '/data/servicemanagerloader.php');
-
-        static::assertInstanceOf(get_class($serviceManagerFromFile), $serviceManagerLoader->getServiceManager());
-    }
-
-    public function testWitNullFileUseADefaultInstanceWithPluginManagerConfigured()
-    {
-        $serviceManagerLoader = new ServiceManagerLoader(null);
+        $file = dirname(__DIR__, 2) . '/ZendIntegration/servicemanagerloader.php';
+        $serviceManagerFromFile = require $file;
+        $serviceManagerLoader = new ServiceManagerLoader($file);
 
         $serviceManager = $serviceManagerLoader->getServiceManager();
 
-        // @see \Zend\Mvc\Service\ServiceManagerConfig
-        $this->assertTrue($serviceManager->has(EventManagerInterface::class));
-        $this->assertTrue($serviceManager->has('ControllerPluginManager'));
+        static::assertTrue($serviceManager->has('foo'));
+        static::assertFalse($serviceManager->has('bar'));
 
-        /** @var PluginManager $controllerPluginManager */
+        static::isInstanceOf(FooService::class, $serviceManager->get('foo'));
+
         $controllerPluginManager = $serviceManager->get('ControllerPluginManager');
 
-        $this->assertTrue($controllerPluginManager->has('redirect'));
+        static::assertFalse($controllerPluginManager->has('foo'));
+        static::assertTrue($controllerPluginManager->has('bar'));
+
+        static::isInstanceOf(BarService::class, $controllerPluginManager->get('bar'));
     }
 }
