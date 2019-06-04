@@ -1,7 +1,7 @@
 [
     {
-        "message": "Cannot call method isBar() on null.",
-        "line": 27,
+        "message": "Call to an undefined method ZendPhpStan\\TestAsset\\CssService::isCssWut().",
+        "line": 32,
         "ignorable": true
     }
 ]

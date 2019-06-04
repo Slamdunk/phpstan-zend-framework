@@ -25,5 +25,12 @@ final class serviceManagerDynamicReturn
 
         $barService = $this->serviceManager->get('bar');
         $barService->isBar();
+
+        $viewHelperManager = $this->serviceManager->get('ViewHelperManager');
+
+        $viewHelperManager->get('css')->isCss();
+        $viewHelperManager->get('css')->isCssWut();
+
+        $viewHelperManager->get('foobar')->isCss();
     }
 }

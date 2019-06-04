@@ -11,7 +11,7 @@ use Zend\Stdlib\ResponseInterface;
 
 final class Route66 implements RouteInterface
 {
-    public function isXyz(): bool
+    public function isRoute66(): bool
     {
         return true;
     }
@@ -24,7 +24,7 @@ final class Route66 implements RouteInterface
      */
     public static function factory($options = [])
     {
-        // TODO: Implement factory() method.
+        return new self();
     }
 
     /**

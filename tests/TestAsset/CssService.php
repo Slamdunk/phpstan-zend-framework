@@ -7,7 +7,7 @@ use Zend\View\Renderer\RendererInterface as Renderer;
 
 final class CssService implements HelperInterface
 {
-    public function isFoo(): bool
+    public function isCss(): bool
     {
         return true;
     }
