@@ -1,5 +1,5 @@
 {
-    "name": "slam/phpstan-zend-mvc",
+    "name": "slam/phpstan-zend-framework",
     "description": "Zend Framework 3 MVC controller plugin extension for PHPStan.",
     "type": "phpstan-extension",
     "license": "MIT",
