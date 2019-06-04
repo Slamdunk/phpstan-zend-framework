@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace ZendPhpStan\Tests\ZendIntegration\data;
 
+use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\ServiceManager;
 
 final class controllerMethod
 {
     /**
-     * @var ServiceManager
+     * @var ControllerManager
      */
-    private $serviceManager;
+    private $controllerManager;
 
     public function __construct(ServiceManager $serviceManager)
     {
-        $this->serviceManager = $serviceManager;
+        $this->controllerManager = $serviceManager->get('ControllerManager');
     }
 
     public function getDynamicType(): void
     {
-        $controllerManager = $this->serviceManager->get('ControllerManager');
-        $controllerManager->get('xyz');
-        $controllerManager->get('foobar');
+        $this->controllerManager->get('xyz');
+        $this->controllerManager->get('foobar');
     }
 }

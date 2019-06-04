@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace ZendPhpStan\Tests\ZendIntegration\data;
 
+use Zend\Router\RoutePluginManager;
 use Zend\ServiceManager\ServiceManager;
 
 final class routePluginMethod
 {
     /**
-     * @var ServiceManager
+     * @var RoutePluginManager
      */
-    private $serviceManager;
+    private $routePluginManager;
 
     public function __construct(ServiceManager $serviceManager)
     {
-        $this->serviceManager = $serviceManager;
+        $this->routePluginManager = $serviceManager->get('RoutePluginManager');
     }
 
     public function getDynamicType(): void
     {
-        $viewHelperManager = $this->serviceManager->get('RoutePluginManager');
-        $viewHelperManager->get('route66');
-        $viewHelperManager->get('foobar');
+        $this->routePluginManager->get('route66');
+        $this->routePluginManager->get('foobar');
     }
 }

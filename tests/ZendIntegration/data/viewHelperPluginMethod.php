@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace ZendPhpStan\Tests\ZendIntegration\data;
 
 use Zend\ServiceManager\ServiceManager;
+use Zend\View\HelperPluginManager;
 
 final class viewHelperPluginMethod
 {
     /**
-     * @var ServiceManager
+     * @var HelperPluginManager
      */
-    private $serviceManager;
+    private $viewHelperManager;
 
     public function __construct(ServiceManager $serviceManager)
     {
-        $this->serviceManager = $serviceManager;
+        $this->viewHelperManager = $serviceManager->get('ViewHelperManager');
     }
 
     public function getDynamicType(): void
     {
-        $viewHelperManager = $this->serviceManager->get('ViewHelperManager');
-        $viewHelperManager->get('css');
-        $viewHelperManager->get('foobar');
+        $this->viewHelperManager->get('css');
+        $this->viewHelperManager->get('foobar');
     }
 }

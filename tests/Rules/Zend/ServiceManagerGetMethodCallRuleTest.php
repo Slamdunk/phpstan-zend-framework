@@ -33,7 +33,7 @@ final class ServiceManagerGetMethodCallRuleTest extends RuleTestCase
     {
         $this->analyse([__DIR__ . '/ServiceManagerGetMethodCallRule/Foo.php'], [
             [
-                'The service "non_existent_service" was not configured in ServiceManager.',
+                'The service "non_existent_service" was not configured in Zend\ServiceManager\ServiceManager.',
                 23,
             ],
         ]);

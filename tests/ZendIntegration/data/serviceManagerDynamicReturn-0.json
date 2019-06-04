@@ -1,6 +1,6 @@
 [
     {
-        "message": "The service \"bar\" was not configured in ServiceManager.",
+        "message": "The service \"bar\" was not configured in Zend\\ServiceManager\\ServiceManager.",
         "line": 26,
         "ignorable": true
     }

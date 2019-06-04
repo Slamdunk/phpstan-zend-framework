@@ -9,7 +9,9 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ObjectType;
+use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\PluginManagerInterface;
+use Zend\View\HelperPluginManager;
 use ZendPhpStan\Type\Zend\ObjectServiceManagerType;
 use ZendPhpStan\Type\Zend\ServiceManagerLoader;
 
@@ -19,6 +21,14 @@ final class ServiceManagerGetMethodCallRule implements Rule
      * @var ServiceManagerLoader
      */
     private $serviceManagerLoader;
+
+    /**
+     * @var array
+     */
+    private $knownUnmappedAliasToClassServices = [
+        ControllerManager::class   => 'ControllerManager',
+        HelperPluginManager::class => 'ViewHelperManager',
+    ];
 
     public function __construct(ServiceManagerLoader $serviceManagerLoader)
     {
@@ -61,12 +71,14 @@ final class ServiceManagerGetMethodCallRule implements Rule
             return [];
         }
 
-        $serviceManagerName = 'ServiceManager';
+        $serviceManagerName = $calledOnType->getClassName();
         $serviceManager     = $this->serviceManagerLoader->getServiceManager();
-        if ($calledOnType instanceof ObjectServiceManagerType && $calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()) {
-            $serviceManagerName = $calledOnType->getServiceName();
-            $serviceManager     = $serviceManager->get($serviceManagerName);
+        if (isset($this->knownUnmappedAliasToClassServices[$serviceManagerName])) {
+            $serviceManager = $serviceManager->get($this->knownUnmappedAliasToClassServices[$serviceManagerName]);
+        } elseif ($calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()) {
+            $serviceManager = $serviceManager->get($serviceManagerName);
         }
+
         $serviceName = $argType->getValue();
         if ($serviceManager->has($serviceName)) {
             return [];
@@ -75,7 +87,9 @@ final class ServiceManagerGetMethodCallRule implements Rule
         return [\sprintf(
             'The service "%s" was not configured in %s.',
             $serviceName,
-            $serviceManagerName
+            $calledOnType instanceof ObjectServiceManagerType
+                ? $calledOnType->getServiceName()
+                : $serviceManagerName
         )];
     }
 }
