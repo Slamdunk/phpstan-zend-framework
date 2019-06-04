@@ -8,13 +8,13 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Zend\ServiceManager\ServiceManager;
 
-final class ServiceManagerGetDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
+final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
     /**
      * @var ServiceManagerLoader
@@ -56,6 +56,8 @@ final class ServiceManagerGetDynamicReturnTypeExtension implements \PHPStan\Type
             return new NullType();
         }
 
-        return new ObjectType(\get_class($serviceManager->get($objectName)));
+        $serviceClass   = \get_class($serviceManager->get($objectName));
+
+        return new ObjectServiceManagerType($serviceClass, $objectName);
     }
 }

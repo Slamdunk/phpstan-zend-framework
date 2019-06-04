@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 use PHPStan\Testing\LevelsTestCase;
 
+/**
+ * @covers \ZendPhpStan\Type\Zend\ControllerPluginClassReflectionExtension
+ * @covers \ZendPhpStan\Type\Zend\ObjectServiceManagerType
+ * @covers \ZendPhpStan\Type\Zend\PluginMethodReflection
+ * @covers \ZendPhpStan\Type\Zend\ServiceManagerGetDynamicReturnTypeExtension
+ */
 final class ServiceManagerIntegrationTest extends LevelsTestCase
 {
     public function dataTopics(): array

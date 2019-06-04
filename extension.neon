@@ -7,6 +7,9 @@ parametersSchema:
        serviceManagerLoader: schema(string(), nullable())
     ])
 
+rules:
+    - ZendPhpStan\Rules\Zend\ServiceManagerGetMethodCallRule
+
 services:
     -
        class: ZendPhpStan\Type\Zend\ServiceManagerLoader
