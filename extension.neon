@@ -24,10 +24,6 @@ services:
        tags:
            - phpstan.broker.dynamicMethodReturnTypeExtension
     -
-       class: ZendPhpStan\Type\Zend\ControllerRequestResponsePropertiesClassReflectionExtension
-       tags:
-           - phpstan.broker.propertiesClassReflectionExtension
-    -
        class: ZendPhpStan\Type\Zend\ControllerPluginClassReflectionExtension
        tags:
            - phpstan.broker.methodsClassReflectionExtension

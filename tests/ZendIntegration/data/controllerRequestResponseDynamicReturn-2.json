@@ -1,12 +1,12 @@
 [
     {
         "message": "Call to an undefined method Zend\\Http\\PhpEnvironment\\Request::getBasePattt().",
-        "line": 15,
+        "line": 14,
         "ignorable": true
     },
     {
         "message": "Call to an undefined method Zend\\Http\\PhpEnvironment\\Response::headersSenttt().",
-        "line": 17,
+        "line": 16,
         "ignorable": true
     }
 ]
