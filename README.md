@@ -10,9 +10,9 @@
 
 This extension provides following features:
 
-Adds support to PHPStan to correctly handle controller plugins that are called
-using magic `__call()` in `\Zend\Mvc\Controller\AbstractController` and
-children.
+1. Provides correct return for `ServiceLocatorInterface::get()`
+1. Handle controller plugins that are called using magic `__call()` in subclasses of
+`\Zend\Mvc\Controller\AbstractController`
 
 ## Installation
 
