@@ -10,18 +10,18 @@ final class controllerRequestResponseDynamicReturn extends AbstractActionControl
 {
     public function actionIndex()
     {
-        $this->request->getBasePattt();
+        // $this->request->getBasePattt();
         $this->getRequest()->getBasePattt();
-        $this->response->headersSenttt();
+        // $this->response->headersSenttt();
         $this->getResponse()->headersSenttt();
 
-        $this->request->getBasePath();
+        // $this->request->getBasePath();
         $this->getRequest()->getBasePath();
-        $this->request->isPost();
+        // $this->request->isPost();
         $this->getRequest()->isPost();
-        $this->response->headersSent();
+        // $this->response->headersSent();
         $this->getResponse()->headersSent();
-        $this->response->getStatusCode();
+        // $this->response->getStatusCode();
         $this->getResponse()->getStatusCode();
     }
 }
