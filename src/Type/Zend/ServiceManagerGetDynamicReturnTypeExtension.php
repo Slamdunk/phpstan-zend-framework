@@ -18,7 +18,7 @@ use PHPStan\Type\Type;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension, BrokerAwareExtension
+final class ServiceManagerGetDynamicReturnTypeExtension implements BrokerAwareExtension, DynamicMethodReturnTypeExtension
 {
     /**
      * @var ServiceManagerLoader
