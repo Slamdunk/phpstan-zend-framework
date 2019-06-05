@@ -31,7 +31,7 @@
         "zendframework/zend-cache": "^2.8",
         "zendframework/zend-filter": "^2.9",
         "zendframework/zend-form": "^2.14",
-        "zendframework/zend-hydrator": "^3.0",
+        "zendframework/zend-hydrator": "^2.4 || ^3.0",
         "zendframework/zend-i18n": "^2.9",
         "zendframework/zend-inputfilter": "^2.10",
         "zendframework/zend-log": "^2.10",
