@@ -9,8 +9,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ObjectType;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\View\HelperPluginManager;
 use ZendPhpStan\Type\Zend\ObjectServiceManagerType;
 use ZendPhpStan\Type\Zend\ServiceManagerLoader;
 
