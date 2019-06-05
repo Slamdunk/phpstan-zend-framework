@@ -1,0 +1,42 @@
+[
+    {
+        "message": "Call to an undefined method Zend\\Stdlib\\RequestInterface::getBasePattt().",
+        "line": 13,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Zend\\Http\\PhpEnvironment\\Request::getBasePattt().",
+        "line": 14,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Zend\\Stdlib\\ResponseInterface::headersSenttt().",
+        "line": 15,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Zend\\Http\\PhpEnvironment\\Response::headersSenttt().",
+        "line": 16,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Zend\\Stdlib\\RequestInterface::getBasePath().",
+        "line": 18,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Zend\\Stdlib\\RequestInterface::isPost().",
+        "line": 20,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Zend\\Stdlib\\ResponseInterface::headersSent().",
+        "line": 22,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Zend\\Stdlib\\ResponseInterface::getStatusCode().",
+        "line": 24,
+        "ignorable": true
+    }
+]
