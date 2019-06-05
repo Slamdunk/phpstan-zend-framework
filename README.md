@@ -19,7 +19,7 @@ children.
 To use this extension, require it in [Composer](https://getcomposer.org/):
 
 ```
-composer require --dev slam/phpstan-zend-mvc
+composer require --dev slam/phpstan-zend-framework
 ```
 
 If you also install [phpstan/extension-installer](https://github.com/phpstan/extension-installer) then you're all set!
@@ -31,7 +31,7 @@ If you don't want to use `phpstan/extension-installer`, include extension.neon i
 
 ```
 includes:
-    - vendor/slam/phpstan-zend-mvc/extension.neon
+    - vendor/slam/phpstan-zend-framework/extension.neon
 ```
 
 </details>
