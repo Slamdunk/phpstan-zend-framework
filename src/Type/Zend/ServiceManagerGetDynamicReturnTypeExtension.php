@@ -13,7 +13,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
@@ -29,7 +29,7 @@ final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethod
 
     public function getClass(): string
     {
-        return ServiceManager::class;
+        return ServiceLocatorInterface::class;
     }
 
     public function isMethodSupported(MethodReflection $methodReflection): bool
