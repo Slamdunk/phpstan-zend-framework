@@ -61,6 +61,6 @@ final class ControllerPluginClassReflectionExtension implements BrokerAwareExten
 
     private function getControllerPluginManager(): ServiceManager
     {
-        return $this->serviceManagerLoader->getServiceManager('ControllerPluginManager', true);
+        return $this->serviceManagerLoader->getServiceManager('ControllerPluginManager');
     }
 }

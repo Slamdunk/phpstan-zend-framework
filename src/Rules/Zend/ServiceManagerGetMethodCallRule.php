@@ -10,7 +10,6 @@ use PHPStan\Rules\Rule;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ObjectType;
 use Zend\Mvc\Controller\ControllerManager;
-use Zend\ServiceManager\PluginManagerInterface;
 use Zend\View\HelperPluginManager;
 use ZendPhpStan\Type\Zend\ObjectServiceManagerType;
 use ZendPhpStan\Type\Zend\ServiceManagerLoader;
@@ -73,10 +72,7 @@ final class ServiceManagerGetMethodCallRule implements Rule
         }
 
         $serviceName    = $argType->getValue();
-        $serviceManager = $this->serviceManagerLoader->getServiceManager(
-            $calledOnType->getClassName(),
-            $calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()
-        );
+        $serviceManager = $this->serviceManagerLoader->getServiceManager($calledOnType->getClassName());
 
         if ($serviceManager->has($serviceName)) {
             return [];

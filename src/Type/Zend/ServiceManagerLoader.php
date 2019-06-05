@@ -11,6 +11,7 @@ use Zend\Log\WriterPluginManager as LogWriterPluginManager;
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 
@@ -36,6 +37,14 @@ final class ServiceManagerLoader
         \Zend\Paginator\Module::class,
         \Zend\Router\Module::class,
         \Zend\Validator\Module::class,
+    ];
+
+    /**
+     * @var array
+     */
+    private $serviceManagerNames = [
+        ServiceManager::class           => true,
+        ServiceLocatorInterface::class  => true,
     ];
 
     /**
@@ -68,7 +77,7 @@ final class ServiceManagerLoader
         $this->serviceManager = $serviceManager;
     }
 
-    public function getServiceManager(string $serviceManagerName, bool $isPlugin): ServiceManager
+    public function getServiceManager(string $serviceManagerName): ServiceManager
     {
         if (null === $this->serviceManager) {
             $serviceManagerConfig = new ServiceManagerConfig();
@@ -89,11 +98,9 @@ final class ServiceManagerLoader
             $this->serviceManager = $serviceManager;
         }
 
-        $serviceManager     = $this->serviceManager;
-        if (isset($this->knownUnmappedAliasToClassServices[$serviceManagerName])) {
-            $serviceManager = $serviceManager->get($this->knownUnmappedAliasToClassServices[$serviceManagerName]);
-        } elseif ($isPlugin) {
-            $serviceManager = $serviceManager->get($serviceManagerName);
+        $serviceManager = $this->serviceManager;
+        if (! isset($this->serviceManagerNames[$serviceManagerName])) {
+            $serviceManager = $serviceManager->get($this->knownUnmappedAliasToClassServices[$serviceManagerName] ?? $serviceManagerName);
         }
 
         return $serviceManager;

@@ -13,7 +13,6 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Zend\ServiceManager\PluginManagerInterface;
 use Zend\ServiceManager\ServiceManager;
 
 final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
@@ -58,10 +57,7 @@ final class ServiceManagerGetDynamicReturnTypeExtension implements DynamicMethod
         }
 
         $serviceName    = $argType->getValue();
-        $serviceManager = $this->serviceManagerLoader->getServiceManager(
-            $calledOnType->getClassName(),
-            $calledOnType->isInstanceOf(PluginManagerInterface::class)->yes()
-        );
+        $serviceManager = $this->serviceManagerLoader->getServiceManager($calledOnType->getClassName());
 
         if (! $serviceManager->has($serviceName)) {
             return new NeverType();
