@@ -1,7 +1,6 @@
 includes:
     - vendor/phpstan/phpstan/conf/config.levelmax.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
-    - vendor/phpstan/phpstan-php-parser/extension.neon
 
 parameters:
     paths:
@@ -10,12 +9,3 @@ parameters:
     excludes_analyse:
         - tests/ZendIntegration/data/
         - tests/TestAsset/
-
-#services:
-#	scopeIsInClass:
-#		class: PHPStan\Internal\ScopeIsInClassTypeSpecifyingExtension
-#		arguments:
-#			isInMethodName: isInClass
-#			removeNullMethodName: getClassReflection
-#		tags:
-#			- phpstan.typeSpecifier.methodTypeSpecifyingExtension
