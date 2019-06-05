@@ -1,31 +1,8 @@
 {
     "name": "slam/phpstan-zend-framework",
-    "description": "Zend Framework 3 MVC controller plugin extension for PHPStan.",
     "type": "phpstan-extension",
+    "description": "Zend Framework 3 MVC controller plugin extension for PHPStan.",
     "license": "MIT",
-    "require": {
-        "php": "^7.1",
-        "zendframework/zend-mvc": "^3.1",
-        "phpstan/phpstan": "^0.11.8"
-    },
-    "require-dev": {
-        "nette/di": "^3.0",
-        "nette/neon": "^3.0",
-        "phpstan/phpstan-php-parser": "^0.11",
-        "phpstan/phpstan-phpunit": "^0.11",
-        "phpunit/phpunit": "^7.5",
-        "roave/security-advisories": "dev-master",
-        "slam/php-cs-fixer-extensions": "^1.17",
-        "slam/php-debug-r": "^1.4",
-        "zendframework/zend-mvc": "^3.1"
-    },
-    "extra": {
-        "phpstan": {
-            "includes": [
-                "extension.neon"
-            ]
-        }
-    },
     "authors": [
         {
             "name": "Greg Bell",
@@ -40,6 +17,39 @@
             "email": "zoeslam@gmail.com"
         }
     ],
+    "require": {
+        "php": "^7.1",
+        "phpstan/phpstan": "^0.11.8",
+        "zendframework/zend-mvc": "^3.1"
+    },
+    "require-dev": {
+        "nette/di": "^3.0",
+        "nette/neon": "^3.0",
+        "phpstan/phpstan-php-parser": "^0.11",
+        "phpstan/phpstan-phpunit": "^0.11",
+        "phpunit/phpunit": "^7.5",
+        "roave/security-advisories": "dev-master",
+        "slam/php-cs-fixer-extensions": "^1.17",
+        "slam/php-debug-r": "^1.4",
+        "zendframework/zend-cache": "^2.8",
+        "zendframework/zend-filter": "^2.9",
+        "zendframework/zend-form": "^2.14",
+        "zendframework/zend-hydrator": "^3.0",
+        "zendframework/zend-i18n": "^2.9",
+        "zendframework/zend-inputfilter": "^2.10",
+        "zendframework/zend-log": "^2.10",
+        "zendframework/zend-mail": "^2.10",
+        "zendframework/zend-mvc": "^3.1",
+        "zendframework/zend-paginator": "^2.8",
+        "zendframework/zend-validator": "^2.12"
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
+    },
     "autoload": {
         "psr-4": {
             "ZendPhpStan\\": "src/"

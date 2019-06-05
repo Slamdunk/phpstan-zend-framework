@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace ZendPhpStan\Type\Zend;
 
+use Zend\Log\FilterPluginManager as LogFilterPluginManager;
+use Zend\Log\FormatterPluginManager as LogFormatterPluginManager;
+use Zend\Log\ProcessorPluginManager as LogProcessorPluginManager;
+use Zend\Log\WriterPluginManager as LogWriterPluginManager;
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
@@ -20,9 +24,30 @@ final class ServiceManagerLoader
     /**
      * @var array
      */
+    private $knownModules = [
+        \Zend\Cache\Module::class,
+        \Zend\Filter\Module::class,
+        \Zend\Form\Module::class,
+        \Zend\Hydrator\Module::class,
+        \Zend\I18n\Module::class,
+        \Zend\InputFilter\Module::class,
+        \Zend\Log\Module::class,
+        \Zend\Mail\Module::class,
+        \Zend\Paginator\Module::class,
+        \Zend\Router\Module::class,
+        \Zend\Validator\Module::class,
+    ];
+
+    /**
+     * @var array
+     */
     private $knownUnmappedAliasToClassServices = [
-        ControllerManager::class   => 'ControllerManager',
-        HelperPluginManager::class => 'ViewHelperManager',
+        ControllerManager::class            => 'ControllerManager',
+        HelperPluginManager::class          => 'ViewHelperManager',
+        LogFilterPluginManager::class       => 'LogFilterManager',
+        LogFormatterPluginManager::class    => 'LogFormatterManager',
+        LogProcessorPluginManager::class    => 'LogProcessorManager',
+        LogWriterPluginManager::class       => 'LogWriterManager',
     ];
 
     public function __construct(?string $serviceManagerLoader)
@@ -49,10 +74,16 @@ final class ServiceManagerLoader
             $serviceManagerConfig = new ServiceManagerConfig();
             $serviceManager       = new ServiceManager();
             $serviceManagerConfig->configureServiceManager($serviceManager);
-            $serviceManager->setService('ApplicationConfig', [
+            $config = [
                 'modules'                 => [],
                 'module_listener_options' => [],
-            ]);
+            ];
+            foreach ($this->knownModules as $module) {
+                if (\class_exists($module)) {
+                    $config['modules'][$module] = new $module();
+                }
+            }
+            $serviceManager->setService('ApplicationConfig', $config);
             $serviceManager->get(ModuleManager::class)->loadModules();
 
             $this->serviceManager = $serviceManager;
