@@ -23,9 +23,6 @@
         "zendframework/zend-mvc": "^3.1"
     },
     "require-dev": {
-        "nette/di": "^3.0",
-        "nette/neon": "^3.0",
-        "phpstan/phpstan-php-parser": "^0.11",
         "phpstan/phpstan-phpunit": "^0.11",
         "phpunit/phpunit": "^7.5",
         "roave/security-advisories": "dev-master",
