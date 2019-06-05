@@ -21,14 +21,6 @@ final class ServiceManagerGetMethodCallRule implements Rule
      */
     private $serviceManagerLoader;
 
-    /**
-     * @var array
-     */
-    private $knownUnmappedAliasToClassServices = [
-        ControllerManager::class   => 'ControllerManager',
-        HelperPluginManager::class => 'ViewHelperManager',
-    ];
-
     public function __construct(ServiceManagerLoader $serviceManagerLoader)
     {
         $this->serviceManagerLoader = $serviceManagerLoader;
