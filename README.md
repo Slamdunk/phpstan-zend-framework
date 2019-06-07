@@ -10,7 +10,7 @@
 
 This extension provides following features:
 
-1. Provide correct return for `\Zend\ServiceManager\ServiceLocatorInterface::get()`
+1. Provide correct return types for `\Zend\ServiceManager\ServiceLocatorInterface::get()` using real service instances
 1. Handle controller plugins that are called using magic `__call()` in subclasses of
 `\Zend\Mvc\Controller\AbstractController`
 1. `getApplication()`, `getRenderer()`, `getRequest()` and `getResponse()` methods on Controllers, MvcEvents, View,
