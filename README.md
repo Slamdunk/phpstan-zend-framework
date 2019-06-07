@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Slamdunk/phpstan-zend-framework.svg?branch=master)](https://travis-ci.org/Slamdunk/phpstan-zend-framework)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Slamdunk/phpstan-zend-framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Slamdunk/phpstan-zend-framework/?branch=master)
 [![Packagist](https://img.shields.io/packagist/v/slam/phpstan-zend-framework.svg)](https://packagist.org/packages/slam/phpstan-zend-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/slam/phpstan-zend-framework.svg)](https://packagist.org/packages/Slamdunk/phpstan-zend-framework)
+[![Total Downloads](https://img.shields.io/packagist/dt/slam/phpstan-zend-framework.svg)](https://packagist.org/packages/slam/phpstan-zend-framework)
 
 * [PHPStan](https://github.com/phpstan/phpstan)
 * [Zend Framework](https://framework.zend.com/)
