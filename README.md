@@ -1,3 +1,7 @@
+> ## Repository abandoned 2019-12-31
+>
+> This repository has moved to [Slamdunk/phpstan-laminas-framework](https://github.com/Slamdunk/phpstan-laminas-framework).
+
 # PHPStan extension for Zend Framework
 
 [![Build Status](https://travis-ci.org/Slamdunk/phpstan-zend-framework.svg?branch=master)](https://travis-ci.org/Slamdunk/phpstan-zend-framework)
